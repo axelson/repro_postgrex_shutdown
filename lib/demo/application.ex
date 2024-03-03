@@ -8,16 +8,23 @@ defmodule Demo.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {ShutdownNotifier, message: "1"},
       DemoWeb.Telemetry,
+      {ShutdownNotifier, message: "2"},
       Demo.Repo,
+      {ShutdownNotifier, message: "3"},
       {DNSCluster, query: Application.get_env(:demo, :dns_cluster_query) || :ignore},
+      {ShutdownNotifier, message: "4"},
       {Phoenix.PubSub, name: Demo.PubSub},
+      {ShutdownNotifier, message: "5"},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Demo.Finch},
+      {ShutdownNotifier, message: "6"},
       # Start a worker by calling: Demo.Worker.start_link(arg)
       # {Demo.Worker, arg},
       # Start to serve requests, typically the last entry
-      DemoWeb.Endpoint
+      DemoWeb.Endpoint,
+      {ShutdownNotifier, message: "7"},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

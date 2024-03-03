@@ -1,18 +1,18 @@
-# Demo
+Repro https://github.com/elixir-ecto/postgrex/issues/667
 
-To start your Phoenix server:
+Reproduce with:
+```
+mix deps.get
+iex -S mix phx.server
+\# wait for server to boot
+iex> System.stop()
+```
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+The output will contain logs like:
+```
+[info] Postgrex.Protocol (#PID<0.413.0>) missed message: {:EXIT, #PID<0.459.0>, :shutdown}
+[info] Postgrex.Protocol (#PID<0.415.0>) missed message: {:EXIT, #PID<0.459.0>, :shutdown}
+[info] Postgrex.Protocol (#PID<0.409.0>) missed message: {:EXIT, #PID<0.459.0>, :shutdown}
+[info] Postgrex.Protocol (#PID<0.414.0>) missed message: {:EXIT, #PID<0.459.0>, :shutdown}
+[info] Postgrex.Protocol (#PID<0.410.0>) missed message: {:EXIT, #PID<0.459.0>, :shutdown}
+```
